@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   ParseIntPipe,
   Post,
@@ -26,9 +27,9 @@ export class RoleController {
   }
 
   @Post()
+  @HttpCode(200)
   async createRol(@Body() role: CreateRolDto) {
-    await this._roleService.postRole(role);
-    return { statusCode: 200, message: 'Record created' };
+    return { statusCode: 200, data: await this._roleService.postRole(role) };
   }
 
   @Put(':id')
