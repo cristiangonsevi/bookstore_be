@@ -1,6 +1,4 @@
 import { IsString } from 'class-validator';
-import { Status } from '../../../shared/status.enum';
-import { Role } from '../entity/role.entity';
 
 export class CreateRolDto {
   @IsString()
@@ -8,9 +6,4 @@ export class CreateRolDto {
 
   @IsString()
   description: string;
-
-  roles: Role[];
-
-  @IsString()
-  status: Status;
 }
