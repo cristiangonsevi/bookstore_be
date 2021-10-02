@@ -2,8 +2,7 @@
 import { IsEmail, IsString } from 'class-validator';
 import { Exclude, Expose, Type } from 'class-transformer';
 import { ReadUserDetailDto } from './read.user.detail.dto';
-import { Status } from 'src/shared/status.enum';
-import { ReadRolDto } from 'src/modules/role/dao/read.rol.dto';
+import { ReadRolDto } from '../../role/dto';
 
 @Exclude()
 export class ReadUserDto {

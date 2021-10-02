@@ -1,4 +1,4 @@
-import { Status } from 'src/shared/status.enum';
+import { Status } from '../../../shared/status.enum';
 import {
   BaseEntity,
   Column,

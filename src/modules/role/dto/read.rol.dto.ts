@@ -1,8 +1,11 @@
 import { Exclude, Expose } from 'class-transformer';
-import { IsString } from 'class-validator';
+import { IsInt, IsString } from 'class-validator';
 
 @Exclude()
 export class ReadRolDto {
+  @Expose()
+  @IsInt()
+  readonly id: number;
   @Expose()
   @IsString()
   readonly name: string;
