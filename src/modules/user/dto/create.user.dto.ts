@@ -1,7 +1,7 @@
 import { Exclude, Expose } from 'class-transformer';
 import { IsEmail, IsString } from 'class-validator';
-import { Role } from 'src/modules/role/entity/role.entity';
-import { Status } from 'src/shared/status.enum';
+import { Role } from '../../../modules/role/entity/role.entity';
+import { Status } from '../../../shared/status.enum';
 import { ReadUserDetailDto } from '.';
 
 @Exclude()
