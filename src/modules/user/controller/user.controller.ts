@@ -7,7 +7,11 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { RoleGuard } from '../../role/guards/role.guard';
+import { Roles } from '../../role/decorators/rol.decorator';
 import { UserService } from '../dao/user.service';
 import { UpdateUserDto } from '../dto';
 import { User } from '../entity/user.entity';
@@ -16,6 +20,8 @@ import { User } from '../entity/user.entity';
 export class UserController {
   constructor(private readonly _userService: UserService) {}
 
+  @Roles('ADMIN')
+  @UseGuards(AuthGuard(), RoleGuard)
   @Get()
   async getUsers() {
     return { statusCode: 200, data: await this._userService.getUsers() };
@@ -43,5 +49,14 @@ export class UserController {
       statusCode: 200,
       data: await this._userService.updateUser(id, user),
     };
+  }
+  @Post('/setRole/:userId/:roleId')
+  @HttpCode(200)
+  async(
+    @Param('userId', ParseIntPipe) userId: number,
+    @Param('roleId', ParseIntPipe) roleId: number,
+  ) {
+    this._userService.setRoleToUser(userId, roleId);
+    return { statusCode: 200, message: 'Role was asigned successfully' };
   }
 }

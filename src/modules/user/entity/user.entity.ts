@@ -37,8 +37,8 @@ export class User extends BaseEntity {
   @JoinColumn({ name: 'detail_id' })
   details: UserDetail;
 
-  @ManyToMany((type) => Role, (role) => role.users, { eager: true })
-  @JoinTable({ name: 'user_by_roles' })
+  @ManyToMany(() => Role, { eager: true })
+  @JoinTable()
   roles: Role[];
 
   @Column({ type: 'varchar', default: Status.ACTIVE })

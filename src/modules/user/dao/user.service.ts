@@ -12,12 +12,15 @@ import { ReadUserDto, UpdateUserDto } from '../dto';
 import { UserRepository } from '../entity/user.repository';
 import { UserDetail } from '../entity/user_details.entity';
 import { User } from '../entity/user.entity';
+import { RoleRepository } from '../../role/entity/role.repository';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserRepository)
     private readonly _userRepository: UserRepository,
+    @InjectRepository(RoleRepository)
+    private readonly _roleRepository: RoleRepository,
   ) {}
 
   async getUser(id: number): Promise<ReadUserDto> {
@@ -54,5 +57,25 @@ export class UserService {
     user.username = data.username;
     await this._userRepository.save(user);
     return plainToClass(ReadUserDto, user);
+  }
+
+  async setRoleToUser(userId: number, rolId: number) {
+    const user = await this._userRepository.findOne({
+      where: {
+        id: userId,
+        status: Status.ACTIVE,
+      },
+    });
+    if (!user) throw new NotFoundException();
+    const role = await this._roleRepository.findOne({
+      where: {
+        id: rolId,
+        status: Status.ACTIVE,
+      },
+    });
+    if (!role) throw new NotFoundException('Role do not exist');
+    user.roles.push(role);
+    await this._userRepository.save(user);
+    return true;
   }
 }

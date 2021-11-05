@@ -20,6 +20,7 @@ export const databaseProviders = [
         entities: [__dirname + '/../**/entity/*.entity.{js,ts}'],
         migrations: [path.join(__dirname + '/migrations/*{.ts, .js}')],
         synchronize: true,
+        logger: 'debug',
       } as ConnectionOptions;
     },
   }),

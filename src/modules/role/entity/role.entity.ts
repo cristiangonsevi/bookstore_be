@@ -5,8 +5,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -22,10 +20,6 @@ export class Role extends BaseEntity {
 
   @Column({ type: 'text', nullable: false })
   description: string;
-
-  @ManyToMany((type) => User, (user) => user.roles)
-  @JoinTable({ name: 'roles_by_users' })
-  users: User[];
 
   @Column({ type: 'varchar', default: Status.ACTIVE })
   status: string;
